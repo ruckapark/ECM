@@ -173,10 +173,7 @@ void main(void){
     TXSTAbits.TXEN = 1; //enable transmitter, other settings default
     
     while(1){
-        getCharSerial();
+        getCharSerial(); //update value in RCREG
         SendLCD(RCREG,1);
     }
-    
-    
-    
 }

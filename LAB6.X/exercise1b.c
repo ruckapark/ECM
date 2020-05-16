@@ -175,8 +175,5 @@ void main(void){
     while(1){
         getCharSerial();
         SendLCD(RCREG,1);
-    }
-    
-    
-    
+    }   
 }
