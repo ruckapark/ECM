@@ -3,28 +3,11 @@
 #pragma config OSC=IRCIO
 
 
-//exercise 4a 
-//write code to display the voltage result
 
-//LEDout function
 void LEDout(int number)
 {   
-    //c = LATC; //read all the pins in REG C
-    //d = LATD; //dame for D
-    
-    //c= c & 0b00001111; //only keep the pins we aren't changing
-    //d= d & 0b11000011;
-    
     LATC = ((number & 0b00111100)<<2)|(LATC & 0b00001111); //set all the C pins we want to be a 8bit number
     LATD = ((number & 0b11000000)>>2)|((number & 0b00000011)<<2)|(LATD & 0b11000011); //just combine the part of the d reg split
-       
- //Skeleton function for displaying a binary number
- //on the LED array
- //you can write values to the whole port at once using by
- //changing LATN (e.g. LATC=something;)
- //or
- //individual pins can be changed using
- //LATNbits.LATNx (e.g. LATDbits.LATD2=1;)
 }
 
 void LEDout10(int number)
@@ -33,6 +16,7 @@ void LEDout10(int number)
     LATD = (((number & 0b1111000000)>>2)|((number & 0b00000011)<<2))|(LATD & 0b00000011);
 }
 
+/* Function returns x raised to power n */
 double power ( double x, int n ) {
     // initialise y as 1 for if n = 0, returns correctly
     double y = 1;
@@ -42,25 +26,31 @@ double power ( double x, int n ) {
         y *= x;
     }
     
-    //
     return y;
-}//will need a pointer to refer to this in other code
+}
 
+
+/*volume detection defined for my voice*/
+/*
+
+A potentially neater solution but unecessary for now
+
+    - Give conversion constants ax+b=y a and b.
+    - 997 -> 1023 in scale
+    - 306 should equal 1
+    
+    - a = 9/691;
+    - b = -2063/691;
+	
+    - number = ((9*number - 2063)/691)+1; //add one as max volume achievable
+    - convert it to binary 2^n-1
+    - e.g. 10 = 2^10 - 1
+    - number = (2^number)-1;
+	*/
 int LEDConvertVolume(int number) {
     int volume = 0;
-    //calculate the top and bottom light intensities
     //int top = 997;
     //int top = 306;
-    //give conversion constants ax+b=y a and b.
-    // 997 should equal 1023
-    // 306 should equal 1
-    //and so forth
-    //a = 9/691;
-    //b = -2063/691;
-    //number = ((9*number - 2063)/691)+1; //add one as max volume achievable
-    //now convert it to binary 2^n-1
-    //e.g. 10 = 2^10 - 1
-    //number = (2^number)-1;
 
     if (number > 941) {
         number = 0b1111111111;
@@ -88,8 +78,8 @@ int LEDConvertVolume(int number) {
 }
 
 void main(void){
-    int ADResult = 0;
-    int volume = 0;//add these later
+    int ADResult = 0; //result of ADC
+    int volume = 0;
     int volumeold = 0;
     int hold = 0;
     int t = 0;
@@ -103,23 +93,24 @@ void main(void){
     ANSEL0 = 0b00001000;
     ANSEL1 = 0;
     
-    /* Init ADC */
+    /* Init ADC (analogue to dig conv) */
     ADCON0 = 0b00001101;
     ADCON1 = 0b00000000;
     ADCON2 = 0b10101011;
     
     while(1){
-        ADCON0bits.GO = 1; //start conversion
+        ADCON0bits.GO = 1; 		//start conversion
 
         while (ADCON0bits.GO);  //finish conversion
 
         ADResult = ADRESL;
         ADResult += ((unsigned int)ADRESH << 8);
 
-        //has to output a 10 bit number so may have to change the LEDout function
-        //volume = LEDConvertVolume(ADResult);//change it to the volume equivalent
+        //convert into 10 bit scale of volume
         volume = LEDConvertVolume(ADResult);
         
+		
+		/*Update old volume for gradual decrease visually*/
         if(hold > volume){ //check if the one bit is bigger than the light
             LEDout10(hold | volume);
             t++;
@@ -131,7 +122,6 @@ void main(void){
         }
         
         //LEDout10(hold | volume);
-        
         if (volume > volumeold) {
             hold = (volume+1)>>1;
             t=0;
