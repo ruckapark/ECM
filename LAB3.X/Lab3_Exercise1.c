@@ -3,30 +3,21 @@
 void delay(int t) {
     int x;
     for (x = 0; x < t; x++);
-    //Skeleton function for delay code
-    //put code in here to make a delay
-    //of length t
 }
 
 void LEDout(int number) {
 
     LATC = (number & 0b00111100) << 2; //set all the C pins we want to be a 8bit number
     LATD = ((number & 0b11000000) >> 2) | ((number & 0b00000011) << 2); //just combine the part of the d reg split
-
-    //Skeleton function for displaying a binary number
-    //on the LED array
-    //you can write values to the whole port at once using by
-    //changing LATN (e.g. LATC=something;)
-    //or
-    //individual pins can be changed using
-    //LATNbits.LATNx (e.g. LATDbits.LATD2=1;)
 }
 
+// high priority interrupt
 void interrupt InterruptHandlerHigh();
 
-int buttonPush = 0; //part a
-int a = 0; //direction for part b
-int bounceCounter = 0; //counter for switch debouncer
+// global vars
+int buttonPush = 0; 	//part a
+int a = 0; 				//direction for part b
+int bounceCounter = 0; 	//counter for switch debouncer
 
 void main(void) {
     
@@ -47,11 +38,9 @@ void main(void) {
     
     int counter = 1;
     
-    
-    
     while(1){
-        while(bounceCounter < 25){bounceCounter++;}//initially avoid debouncing
-        while (a == 0) { //a determines the direction of counting
+        while(bounceCounter < 25){bounceCounter++;}//debouncer for interrupt (otherwise may run straight back to interrupt!
+        while (a == 0) { //count direction
             LEDout(counter);
             counter++;
             if(counter>127){a=1;}
@@ -79,10 +68,6 @@ void main(void) {
             INTCONbits.INT0IF = 0; 
         }
     }
-        
-//    while(1){//only necessary for part a
-//        if(buttonPush>127){buttonPush=0;}
-//    }
 }
 
 void interrupt InterruptHandlerHigh(){ //high priority routine
@@ -97,9 +82,9 @@ void interrupt InterruptHandlerHigh(){ //high priority routine
         
         
         //exercise b
-        if(a==0){a=1;} //if counting up change a down
-        else {a=0;} //reverse if not
-        bounceCounter = 0; // resets the counter for the next bounce
-        INTCONbits.INT0IF = 0; //clear the interrupt flag
+        if(a==0){a=1;} 			//if counting up change a down
+        else {a=0;} 			//reverse if not
+        bounceCounter = 0; 		//resets the counter for the next bounce
+        INTCONbits.INT0IF = 0; 	//clear interrupt flag
     }
 }
