@@ -1,0 +1,799 @@
+
+
+Microchip Technology PIC18 LITE Macro Assembler V1.35 build -356382666 
+                                                                                               Tue Jan 30 11:39:41 2018
+
+Microchip Technology Omniscient Code Generator v1.35 (Free mode) build 201507080246
+     1                           	processor	18F4331
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	lm
+     5                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     6                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1
+     7                           	psect	text0,global,reloc=2,class=CODE,delta=1
+     8                           	psect	text1,global,reloc=2,class=CODE,delta=1
+     9                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    10                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1
+    11                           	psect	rparam,global,class=COMRAM,space=1,delta=1
+    12  0000                     _ADCON0	set	4034
+    13  0000                     _ADCON0bits	set	4034
+    14  0000                     _ADCON1	set	4033
+    15  0000                     _ADCON2	set	4032
+    16  0000                     _ADRESH	set	4036
+    17  0000                     _ADRESL	set	4035
+    18  0000                     _ANSEL0	set	4024
+    19  0000                     _ANSEL1	set	4025
+    20  0000                     _LATC	set	3979
+    21  0000                     _LATD	set	3980
+    22  0000                     _TRISA	set	3986
+    23  0000                     _TRISC	set	3988
+    24  0000                     _TRISD	set	3989
+    25                           
+    26                           ; #config settings
+    27  0000                     
+    28                           	psect	cinit
+    29  001D2C                     __pcinit:
+    30                           	opt stack 0
+    31  001D2C                     start_initialization:
+    32                           	opt stack 0
+    33  001D2C                     __initialization:
+    34                           	opt stack 0
+    35  001D2C                     end_of_initialization:
+    36                           	opt stack 0
+    37  001D2C                     __end_of__initialization:
+    38                           	opt stack 0
+    39  001D2C  0100               	movlb	0
+    40  001D2E  EFC3  F00E         	goto	_main	;jump to C main() function
+    41                           
+    42                           	psect	cstackCOMRAM
+    43  000001                     __pcstackCOMRAM:
+    44                           	opt stack 0
+    45  000001                     ?_LEDConvertVolume:
+    46                           	opt stack 0
+    47  000001                     LEDout10@number:
+    48                           	opt stack 0
+    49  000001                     LEDConvertVolume@number:
+    50                           	opt stack 0
+    51                           
+    52                           ; 2 bytes @ 0x0
+    53  000001                     	ds	2
+    54  000003                     ??_LEDout10:
+    55  000003                     LEDConvertVolume@volume:
+    56                           	opt stack 0
+    57                           
+    58                           ; 2 bytes @ 0x2
+    59  000003                     	ds	4
+    60  000007                     ??_main:
+    61                           
+    62                           ; 0 bytes @ 0x6
+    63  000007                     	ds	4
+    64  00000B                     main@volumeold:
+    65                           	opt stack 0
+    66                           
+    67                           ; 2 bytes @ 0xA
+    68  00000B                     	ds	2
+    69  00000D                     main@ADResult:
+    70                           	opt stack 0
+    71                           
+    72                           ; 2 bytes @ 0xC
+    73  00000D                     	ds	2
+    74  00000F                     main@t:
+    75                           	opt stack 0
+    76                           
+    77                           ; 2 bytes @ 0xE
+    78  00000F                     	ds	2
+    79  000011                     main@hold:
+    80                           	opt stack 0
+    81                           
+    82                           ; 2 bytes @ 0x10
+    83  000011                     	ds	2
+    84  000013                     main@volume:
+    85                           	opt stack 0
+    86                           
+    87                           ; 2 bytes @ 0x12
+    88  000013                     	ds	2
+    89                           
+    90 ;;
+    91 ;;Main: autosize = 0, tempsize = 4, incstack = 0, save=0
+    92 ;;
+    93 ;; *************** function _main *****************
+    94 ;; Defined at:
+    95 ;;		line 90 in file "lab2_analogueInput.c"
+    96 ;; Parameters:    Size  Location     Type
+    97 ;;		None
+    98 ;; Auto vars:     Size  Location     Type
+    99 ;;  volume          2   18[COMRAM] int 
+   100 ;;  hold            2   16[COMRAM] int 
+   101 ;;  t               2   14[COMRAM] int 
+   102 ;;  ADResult        2   12[COMRAM] int 
+   103 ;;  volumeold       2   10[COMRAM] int 
+   104 ;; Return value:  Size  Location     Type
+   105 ;;		None               void
+   106 ;; Registers used:
+   107 ;;		wreg, status,2, status,0, cstack
+   108 ;; Tracked objects:
+   109 ;;		On entry : 0/0
+   110 ;;		On exit  : 0/0
+   111 ;;		Unchanged: 0/0
+   112 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   113 ;;      Params:         0       0       0       0
+   114 ;;      Locals:        10       0       0       0
+   115 ;;      Temps:          4       0       0       0
+   116 ;;      Totals:        14       0       0       0
+   117 ;;Total ram usage:       14 bytes
+   118 ;; Hardware stack levels required when called:    1
+   119 ;; This function calls:
+   120 ;;		_LEDConvertVolume
+   121 ;;		_LEDout10
+   122 ;; This function is called by:
+   123 ;;		Startup code after reset
+   124 ;; This function uses a non-reentrant model
+   125 ;;
+   126                           
+   127                           	psect	text0
+   128  001D86                     __ptext0:
+   129                           	opt stack 0
+   130  001D86                     _main:
+   131                           	opt stack 30
+   132                           
+   133                           ;lab2_analogueInput.c: 91: int ADResult = 0;
+   134                           
+   135                           ;incstack = 0
+   136  001D86  0E00               	movlw	0
+   137  001D88  6E0E               	movwf	main@ADResult+1,c
+   138  001D8A  0E00               	movlw	0
+   139  001D8C  6E0D               	movwf	main@ADResult,c
+   140                           
+   141                           ;lab2_analogueInput.c: 92: int volume = 0;
+   142  001D8E  0E00               	movlw	0
+   143  001D90  6E14               	movwf	main@volume+1,c
+   144  001D92  0E00               	movlw	0
+   145  001D94  6E13               	movwf	main@volume,c
+   146                           
+   147                           ;lab2_analogueInput.c: 93: int volumeold = 0;
+   148  001D96  0E00               	movlw	0
+   149  001D98  6E0C               	movwf	main@volumeold+1,c
+   150  001D9A  0E00               	movlw	0
+   151  001D9C  6E0B               	movwf	main@volumeold,c
+   152                           
+   153                           ;lab2_analogueInput.c: 94: int hold = 0;
+   154  001D9E  0E00               	movlw	0
+   155  001DA0  6E12               	movwf	main@hold+1,c
+   156  001DA2  0E00               	movlw	0
+   157  001DA4  6E11               	movwf	main@hold,c
+   158                           
+   159                           ;lab2_analogueInput.c: 95: int t = 0;
+   160  001DA6  0E00               	movlw	0
+   161  001DA8  6E10               	movwf	main@t+1,c
+   162  001DAA  0E00               	movlw	0
+   163  001DAC  6E0F               	movwf	main@t,c
+   164                           
+   165                           ;lab2_analogueInput.c: 97: LATC = 0;
+   166  001DAE  0E00               	movlw	0
+   167  001DB0  6E8B               	movwf	3979,c	;volatile
+   168                           
+   169                           ;lab2_analogueInput.c: 98: LATD = 0;
+   170  001DB2  0E00               	movlw	0
+   171  001DB4  6E8C               	movwf	3980,c	;volatile
+   172                           
+   173                           ;lab2_analogueInput.c: 99: TRISA = 0b00001000;
+   174  001DB6  0E08               	movlw	8
+   175  001DB8  6E92               	movwf	3986,c	;volatile
+   176                           
+   177                           ;lab2_analogueInput.c: 100: TRISC = 0;
+   178  001DBA  0E00               	movlw	0
+   179  001DBC  6E94               	movwf	3988,c	;volatile
+   180                           
+   181                           ;lab2_analogueInput.c: 101: TRISD = 0;
+   182  001DBE  0E00               	movlw	0
+   183  001DC0  6E95               	movwf	3989,c	;volatile
+   184                           
+   185                           ;lab2_analogueInput.c: 103: ANSEL0 = 0b00001000;
+   186  001DC2  0E08               	movlw	8
+   187  001DC4  6EB8               	movwf	4024,c	;volatile
+   188                           
+   189                           ;lab2_analogueInput.c: 104: ANSEL1 = 0;
+   190  001DC6  0E00               	movlw	0
+   191  001DC8  6EB9               	movwf	4025,c	;volatile
+   192                           
+   193                           ;lab2_analogueInput.c: 107: ADCON0 = 0b00001101;
+   194  001DCA  0E0D               	movlw	13
+   195  001DCC  6EC2               	movwf	4034,c	;volatile
+   196                           
+   197                           ;lab2_analogueInput.c: 108: ADCON1 = 0b00000000;
+   198  001DCE  0E00               	movlw	0
+   199  001DD0  6EC1               	movwf	4033,c	;volatile
+   200                           
+   201                           ;lab2_analogueInput.c: 109: ADCON2 = 0b10101011;
+   202  001DD2  0EAB               	movlw	171
+   203  001DD4  6EC0               	movwf	4032,c	;volatile
+   204  001DD6                     l836:
+   205                           
+   206                           ;lab2_analogueInput.c: 112: ADCON0bits.GO = 1;
+   207  001DD6  82C2               	bsf	4034,1,c	;volatile
+   208  001DD8                     l63:
+   209  001DD8  B2C2               	btfsc	4034,1,c	;volatile
+   210  001DDA  D7FE               	goto	l63
+   211                           
+   212                           ;lab2_analogueInput.c: 116: ADResult = ADRESL;
+   213  001DDC  CFC3 F00D          	movff	4035,main@ADResult	;volatile
+   214  001DE0  6A0E               	clrf	main@ADResult+1,c
+   215                           
+   216                           ;lab2_analogueInput.c: 117: ADResult += ((unsigned int)ADRESH << 8);
+   217  001DE2  50C4               	movf	4036,w,c	;volatile
+   218  001DE4  260E               	addwf	main@ADResult+1,f,c
+   219                           
+   220                           ;lab2_analogueInput.c: 121: volume = LEDConvertVolume(ADResult);
+   221  001DE6  C00D  F001         	movff	main@ADResult,LEDConvertVolume@number
+   222  001DEA  C00E  F002         	movff	main@ADResult+1,LEDConvertVolume@number+1
+   223  001DEE  EC47  F00F         	call	_LEDConvertVolume	;wreg free
+   224  001DF2  C001  F013         	movff	?_LEDConvertVolume,main@volume
+   225  001DF6  C002  F014         	movff	?_LEDConvertVolume+1,main@volume+1
+   226                           
+   227                           ;lab2_analogueInput.c: 123: if(hold > volume){
+   228  001DFA  5011               	movf	main@hold,w,c
+   229  001DFC  5C13               	subwf	main@volume,w,c
+   230  001DFE  5014               	movf	main@volume+1,w,c
+   231  001E00  0A80               	xorlw	128
+   232  001E02  6E07               	movwf	??_main& (0+255),c
+   233  001E04  5012               	movf	main@hold+1,w,c
+   234  001E06  0A80               	xorlw	128
+   235  001E08  5807               	subwfb	??_main& (0+255),w,c
+   236  001E0A  B0D8               	btfsc	status,0,c
+   237  001E0C  D01A               	goto	l852
+   238                           
+   239                           ;lab2_analogueInput.c: 124: LEDout10(hold | volume);
+   240  001E0E  5013               	movf	main@volume,w,c
+   241  001E10  1011               	iorwf	main@hold,w,c
+   242  001E12  6E01               	movwf	LEDout10@number,c
+   243  001E14  5014               	movf	main@volume+1,w,c
+   244  001E16  1012               	iorwf	main@hold+1,w,c
+   245  001E18  6E02               	movwf	LEDout10@number+1,c
+   246  001E1A  EC99  F00E         	call	_LEDout10	;wreg free
+   247                           
+   248                           ;lab2_analogueInput.c: 125: t++;
+   249  001E1E  4A0F               	infsnz	main@t,f,c
+   250  001E20  2A10               	incf	main@t+1,f,c
+   251                           
+   252                           ;lab2_analogueInput.c: 126: if(t>10){
+   253  001E22  BE10               	btfsc	main@t+1,7,c
+   254  001E24  D014               	goto	l854
+   255  001E26  5010               	movf	main@t+1,w,c
+   256  001E28  E104               	bnz	u420
+   257  001E2A  0E0B               	movlw	11
+   258  001E2C  5C0F               	subwf	main@t,w,c
+   259  001E2E  A0D8               	btfss	status,0,c
+   260  001E30  D00E               	goto	l854
+   261  001E32                     u420:
+   262                           
+   263                           ;lab2_analogueInput.c: 127: hold = hold>>1;
+   264  001E32  3412               	rlcf	main@hold+1,w,c
+   265  001E34  3012               	rrcf	main@hold+1,w,c
+   266  001E36  6E07               	movwf	??_main& (0+255),c
+   267  001E38  3011               	rrcf	main@hold,w,c
+   268  001E3A  6E11               	movwf	main@hold,c
+   269  001E3C  C007  F012         	movff	??_main,main@hold+1
+   270                           
+   271                           ;lab2_analogueInput.c: 128: }
+   272                           ;lab2_analogueInput.c: 129: } else{
+   273  001E40  D006               	goto	l854
+   274  001E42                     l852:
+   275                           
+   276                           ;lab2_analogueInput.c: 130: LEDout10(volume);
+   277  001E42  C013  F001         	movff	main@volume,LEDout10@number
+   278  001E46  C014  F002         	movff	main@volume+1,LEDout10@number+1
+   279  001E4A  EC99  F00E         	call	_LEDout10	;wreg free
+   280  001E4E                     l854:
+   281                           
+   282                           ;lab2_analogueInput.c: 131: }
+   283                           ;lab2_analogueInput.c: 135: if (volume > volumeold) {
+   284  001E4E  5013               	movf	main@volume,w,c
+   285  001E50  5C0B               	subwf	main@volumeold,w,c
+   286  001E52  500C               	movf	main@volumeold+1,w,c
+   287  001E54  0A80               	xorlw	128
+   288  001E56  6E07               	movwf	??_main& (0+255),c
+   289  001E58  5014               	movf	main@volume+1,w,c
+   290  001E5A  0A80               	xorlw	128
+   291  001E5C  5807               	subwfb	??_main& (0+255),w,c
+   292  001E5E  B0D8               	btfsc	status,0,c
+   293  001E60  D011               	goto	l860
+   294                           
+   295                           ;lab2_analogueInput.c: 136: hold = (volume+1)>>1;
+   296  001E62  0E01               	movlw	1
+   297  001E64  2413               	addwf	main@volume,w,c
+   298  001E66  6E07               	movwf	??_main& (0+255),c
+   299  001E68  0E00               	movlw	0
+   300  001E6A  2014               	addwfc	main@volume+1,w,c
+   301  001E6C  6E08               	movwf	(??_main+1)& (0+255),c
+   302  001E6E  3408               	rlcf	??_main+1,w,c
+   303  001E70  3008               	rrcf	??_main+1,w,c
+   304  001E72  6E09               	movwf	(??_main+2)& (0+255),c
+   305  001E74  3007               	rrcf	??_main,w,c
+   306  001E76  6E11               	movwf	main@hold,c
+   307  001E78  C009  F012         	movff	??_main+2,main@hold+1
+   308                           
+   309                           ;lab2_analogueInput.c: 137: t=0;
+   310  001E7C  0E00               	movlw	0
+   311  001E7E  6E10               	movwf	main@t+1,c
+   312  001E80  0E00               	movlw	0
+   313  001E82  6E0F               	movwf	main@t,c
+   314  001E84                     l860:
+   315                           
+   316                           ;lab2_analogueInput.c: 138: }
+   317                           ;lab2_analogueInput.c: 140: volumeold = volume;
+   318  001E84  C013  F00B         	movff	main@volume,main@volumeold
+   319  001E88  C014  F00C         	movff	main@volume+1,main@volumeold+1
+   320  001E8C  D7A4               	goto	l836
+   321  001E8E                     __end_of_main:
+   322                           	opt stack 0
+   323                           status	equ	0xFD8
+   324                           
+   325 ;; *************** function _LEDout10 *****************
+   326 ;; Defined at:
+   327 ;;		line 30 in file "lab2_analogueInput.c"
+   328 ;; Parameters:    Size  Location     Type
+   329 ;;  number          2    0[COMRAM] int 
+   330 ;; Auto vars:     Size  Location     Type
+   331 ;;		None
+   332 ;; Return value:  Size  Location     Type
+   333 ;;		None               void
+   334 ;; Registers used:
+   335 ;;		wreg, status,2, status,0
+   336 ;; Tracked objects:
+   337 ;;		On entry : 0/0
+   338 ;;		On exit  : 0/0
+   339 ;;		Unchanged: 0/0
+   340 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   341 ;;      Params:         2       0       0       0
+   342 ;;      Locals:         0       0       0       0
+   343 ;;      Temps:          4       0       0       0
+   344 ;;      Totals:         6       0       0       0
+   345 ;;Total ram usage:        6 bytes
+   346 ;; Hardware stack levels used:    1
+   347 ;; This function calls:
+   348 ;;		Nothing
+   349 ;; This function is called by:
+   350 ;;		_main
+   351 ;; This function uses a non-reentrant model
+   352 ;;
+   353                           
+   354                           	psect	text1
+   355  001D32                     __ptext1:
+   356                           	opt stack 0
+   357  001D32                     _LEDout10:
+   358                           	opt stack 30
+   359                           
+   360                           ;lab2_analogueInput.c: 32: LATC = ((number & 0b00111100)<<2)|(LATC & 0b00001111);
+   361                           
+   362                           ;incstack = 0
+   363  001D32  CF8B F003          	movff	3979,??_LEDout10	;volatile
+   364  001D36  0E0F               	movlw	15
+   365  001D38  1603               	andwf	??_LEDout10,f,c
+   366  001D3A  C001  F004         	movff	LEDout10@number,??_LEDout10+1
+   367  001D3E  0E3C               	movlw	60
+   368  001D40  1604               	andwf	??_LEDout10+1,f,c
+   369  001D42  90D8               	bcf	status,0,c
+   370  001D44  3604               	rlcf	??_LEDout10+1,f,c
+   371  001D46  90D8               	bcf	status,0,c
+   372  001D48  3404               	rlcf	??_LEDout10+1,w,c
+   373  001D4A  1003               	iorwf	??_LEDout10,w,c
+   374  001D4C  6E8B               	movwf	3979,c	;volatile
+   375                           
+   376                           ;lab2_analogueInput.c: 33: LATD = (((number & 0b1111000000)>>2)|((number & 0b00000011)<<
+      +                          2))|(LATD & 0b00000011);
+   377  001D4E  CF8C F003          	movff	3980,??_LEDout10	;volatile
+   378  001D52  0E03               	movlw	3
+   379  001D54  1603               	andwf	??_LEDout10,f,c
+   380  001D56  C001  F004         	movff	LEDout10@number,??_LEDout10+1
+   381  001D5A  0E03               	movlw	3
+   382  001D5C  1604               	andwf	??_LEDout10+1,f,c
+   383  001D5E  90D8               	bcf	status,0,c
+   384  001D60  3604               	rlcf	??_LEDout10+1,f,c
+   385  001D62  90D8               	bcf	status,0,c
+   386  001D64  3604               	rlcf	??_LEDout10+1,f,c
+   387  001D66  C001  F005         	movff	LEDout10@number,??_LEDout10+2
+   388  001D6A  C002  F006         	movff	LEDout10@number+1,??_LEDout10+3
+   389  001D6E  3406               	rlcf	??_LEDout10+3,w,c
+   390  001D70  3206               	rrcf	??_LEDout10+3,f,c
+   391  001D72  3205               	rrcf	??_LEDout10+2,f,c
+   392  001D74  3406               	rlcf	??_LEDout10+3,w,c
+   393  001D76  3206               	rrcf	??_LEDout10+3,f,c
+   394  001D78  3205               	rrcf	??_LEDout10+2,f,c
+   395  001D7A  5005               	movf	??_LEDout10+2,w,c
+   396  001D7C  0BF0               	andlw	240
+   397  001D7E  1004               	iorwf	??_LEDout10+1,w,c
+   398  001D80  1003               	iorwf	??_LEDout10,w,c
+   399  001D82  6E8C               	movwf	3980,c	;volatile
+   400  001D84  0012               	return		;funcret
+   401  001D86                     __end_of_LEDout10:
+   402                           	opt stack 0
+   403                           status	equ	0xFD8
+   404                           
+   405 ;; *************** function _LEDConvertVolume *****************
+   406 ;; Defined at:
+   407 ;;		line 49 in file "lab2_analogueInput.c"
+   408 ;; Parameters:    Size  Location     Type
+   409 ;;  number          2    0[COMRAM] int 
+   410 ;; Auto vars:     Size  Location     Type
+   411 ;;  volume          2    2[COMRAM] int 
+   412 ;; Return value:  Size  Location     Type
+   413 ;;                  2    0[COMRAM] int 
+   414 ;; Registers used:
+   415 ;;		wreg, status,2, status,0
+   416 ;; Tracked objects:
+   417 ;;		On entry : 0/0
+   418 ;;		On exit  : 0/0
+   419 ;;		Unchanged: 0/0
+   420 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   421 ;;      Params:         2       0       0       0
+   422 ;;      Locals:         2       0       0       0
+   423 ;;      Temps:          0       0       0       0
+   424 ;;      Totals:         4       0       0       0
+   425 ;;Total ram usage:        4 bytes
+   426 ;; Hardware stack levels used:    1
+   427 ;; This function calls:
+   428 ;;		Nothing
+   429 ;; This function is called by:
+   430 ;;		_main
+   431 ;; This function uses a non-reentrant model
+   432 ;;
+   433                           
+   434                           	psect	text2
+   435  001E8E                     __ptext2:
+   436                           	opt stack 0
+   437  001E8E                     _LEDConvertVolume:
+   438                           	opt stack 30
+   439                           
+   440                           ;lab2_analogueInput.c: 50: int volume = 0;
+   441                           
+   442                           ;incstack = 0
+   443  001E8E  0E00               	movlw	0
+   444  001E90  6E04               	movwf	LEDConvertVolume@volume+1,c
+   445  001E92  0E00               	movlw	0
+   446  001E94  6E03               	movwf	LEDConvertVolume@volume,c
+   447                           
+   448                           ;lab2_analogueInput.c: 65: if (number > 941) {
+   449  001E96  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   450  001E98  D008               	goto	l778
+   451  001E9A  0EAE               	movlw	174
+   452  001E9C  5C01               	subwf	LEDConvertVolume@number,w,c
+   453  001E9E  0E03               	movlw	3
+   454  001EA0  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   455  001EA2  A0D8               	btfss	status,0,c
+   456  001EA4  D002               	goto	l778
+   457                           
+   458                           ;lab2_analogueInput.c: 66: number = 0b1111111111;
+   459  001EA6  0E03               	movlw	3
+   460  001EA8  D023               	goto	L2
+   461  001EAA                     l778:
+   462  001EAA  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   463  001EAC  D006               	goto	l780
+   464  001EAE  0EAC               	movlw	172
+   465  001EB0  5C01               	subwf	LEDConvertVolume@number,w,c
+   466  001EB2  0E03               	movlw	3
+   467  001EB4  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   468  001EB6  B0D8               	btfsc	status,0,c
+   469  001EB8  D00A               	goto	l784
+   470  001EBA                     l780:
+   471  001EBA  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   472  001EBC  D008               	goto	l784
+   473  001EBE  0E74               	movlw	116
+   474  001EC0  5C01               	subwf	LEDConvertVolume@number,w,c
+   475  001EC2  0E03               	movlw	3
+   476  001EC4  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   477  001EC6  A0D8               	btfss	status,0,c
+   478  001EC8  D002               	goto	l784
+   479                           
+   480                           ;lab2_analogueInput.c: 68: number = 0b0111111111;
+   481  001ECA  0E01               	movlw	1
+   482  001ECC  D011               	goto	L2
+   483  001ECE                     l784:
+   484  001ECE  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   485  001ED0  D006               	goto	l786
+   486  001ED2  0E73               	movlw	115
+   487  001ED4  5C01               	subwf	LEDConvertVolume@number,w,c
+   488  001ED6  0E03               	movlw	3
+   489  001ED8  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   490  001EDA  B0D8               	btfsc	status,0,c
+   491  001EDC  D00C               	goto	l790
+   492  001EDE                     l786:
+   493  001EDE  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   494  001EE0  D00A               	goto	l790
+   495  001EE2  0E3C               	movlw	60
+   496  001EE4  5C01               	subwf	LEDConvertVolume@number,w,c
+   497  001EE6  0E03               	movlw	3
+   498  001EE8  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   499  001EEA  A0D8               	btfss	status,0,c
+   500  001EEC  D004               	goto	l790
+   501                           
+   502                           ;lab2_analogueInput.c: 70: number = 0b0011111111;
+   503  001EEE  0E00               	movlw	0
+   504  001EF0                     L2:
+   505  001EF0  6E02               	movwf	LEDConvertVolume@number+1,c
+   506  001EF2  6801               	setf	LEDConvertVolume@number,c
+   507                           
+   508                           ;lab2_analogueInput.c: 71: } else if (number < 827 && number >= 771) {
+   509  001EF4  D07C               	goto	l828
+   510  001EF6                     l790:
+   511  001EF6  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   512  001EF8  D006               	goto	l792
+   513  001EFA  0E3B               	movlw	59
+   514  001EFC  5C01               	subwf	LEDConvertVolume@number,w,c
+   515  001EFE  0E03               	movlw	3
+   516  001F00  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   517  001F02  B0D8               	btfsc	status,0,c
+   518  001F04  D00C               	goto	l796
+   519  001F06                     l792:
+   520  001F06  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   521  001F08  D00A               	goto	l796
+   522  001F0A  0E03               	movlw	3
+   523  001F0C  5C01               	subwf	LEDConvertVolume@number,w,c
+   524  001F0E  0E03               	movlw	3
+   525  001F10  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   526  001F12  A0D8               	btfss	status,0,c
+   527  001F14  D004               	goto	l796
+   528                           
+   529                           ;lab2_analogueInput.c: 72: number = 0b0001111111;
+   530  001F16  0E00               	movlw	0
+   531  001F18  6E02               	movwf	LEDConvertVolume@number+1,c
+   532  001F1A  0E7F               	movlw	127
+   533  001F1C  D067               	goto	L8
+   534  001F1E                     l796:
+   535  001F1E  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   536  001F20  D006               	goto	l798
+   537  001F22  0E02               	movlw	2
+   538  001F24  5C01               	subwf	LEDConvertVolume@number,w,c
+   539  001F26  0E03               	movlw	3
+   540  001F28  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   541  001F2A  B0D8               	btfsc	status,0,c
+   542  001F2C  D00C               	goto	l802
+   543  001F2E                     l798:
+   544  001F2E  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   545  001F30  D00A               	goto	l802
+   546  001F32  0ECB               	movlw	203
+   547  001F34  5C01               	subwf	LEDConvertVolume@number,w,c
+   548  001F36  0E02               	movlw	2
+   549  001F38  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   550  001F3A  A0D8               	btfss	status,0,c
+   551  001F3C  D004               	goto	l802
+   552                           
+   553                           ;lab2_analogueInput.c: 74: number = 0b0000111111;
+   554  001F3E  0E00               	movlw	0
+   555  001F40  6E02               	movwf	LEDConvertVolume@number+1,c
+   556  001F42  0E3F               	movlw	63
+   557  001F44  D053               	goto	L8
+   558  001F46                     l802:
+   559  001F46  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   560  001F48  D006               	goto	l804
+   561  001F4A  0ECA               	movlw	202
+   562  001F4C  5C01               	subwf	LEDConvertVolume@number,w,c
+   563  001F4E  0E02               	movlw	2
+   564  001F50  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   565  001F52  B0D8               	btfsc	status,0,c
+   566  001F54  D00C               	goto	l808
+   567  001F56                     l804:
+   568  001F56  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   569  001F58  D00A               	goto	l808
+   570  001F5A  0E92               	movlw	146
+   571  001F5C  5C01               	subwf	LEDConvertVolume@number,w,c
+   572  001F5E  0E02               	movlw	2
+   573  001F60  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   574  001F62  A0D8               	btfss	status,0,c
+   575  001F64  D004               	goto	l808
+   576                           
+   577                           ;lab2_analogueInput.c: 76: number = 0b0000011111;
+   578  001F66  0E00               	movlw	0
+   579  001F68  6E02               	movwf	LEDConvertVolume@number+1,c
+   580  001F6A  0E1F               	movlw	31
+   581  001F6C  D03F               	goto	L8
+   582  001F6E                     l808:
+   583  001F6E  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   584  001F70  D006               	goto	l810
+   585  001F72  0E91               	movlw	145
+   586  001F74  5C01               	subwf	LEDConvertVolume@number,w,c
+   587  001F76  0E02               	movlw	2
+   588  001F78  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   589  001F7A  B0D8               	btfsc	status,0,c
+   590  001F7C  D00C               	goto	l814
+   591  001F7E                     l810:
+   592  001F7E  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   593  001F80  D00A               	goto	l814
+   594  001F82  0E5A               	movlw	90
+   595  001F84  5C01               	subwf	LEDConvertVolume@number,w,c
+   596  001F86  0E02               	movlw	2
+   597  001F88  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   598  001F8A  A0D8               	btfss	status,0,c
+   599  001F8C  D004               	goto	l814
+   600                           
+   601                           ;lab2_analogueInput.c: 78: number = 0b0000001111;
+   602  001F8E  0E00               	movlw	0
+   603  001F90  6E02               	movwf	LEDConvertVolume@number+1,c
+   604  001F92  0E0F               	movlw	15
+   605  001F94  D02B               	goto	L8
+   606  001F96                     l814:
+   607  001F96  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   608  001F98  D006               	goto	l816
+   609  001F9A  0E59               	movlw	89
+   610  001F9C  5C01               	subwf	LEDConvertVolume@number,w,c
+   611  001F9E  0E02               	movlw	2
+   612  001FA0  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   613  001FA2  B0D8               	btfsc	status,0,c
+   614  001FA4  D00C               	goto	l820
+   615  001FA6                     l816:
+   616  001FA6  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   617  001FA8  D00A               	goto	l820
+   618  001FAA  0E21               	movlw	33
+   619  001FAC  5C01               	subwf	LEDConvertVolume@number,w,c
+   620  001FAE  0E02               	movlw	2
+   621  001FB0  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   622  001FB2  A0D8               	btfss	status,0,c
+   623  001FB4  D004               	goto	l820
+   624                           
+   625                           ;lab2_analogueInput.c: 80: number = 0b0000000111;
+   626  001FB6  0E00               	movlw	0
+   627  001FB8  6E02               	movwf	LEDConvertVolume@number+1,c
+   628  001FBA  0E07               	movlw	7
+   629  001FBC  D017               	goto	L8
+   630  001FBE                     l820:
+   631  001FBE  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   632  001FC0  D006               	goto	l822
+   633  001FC2  0E20               	movlw	32
+   634  001FC4  5C01               	subwf	LEDConvertVolume@number,w,c
+   635  001FC6  0E02               	movlw	2
+   636  001FC8  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   637  001FCA  B0D8               	btfsc	status,0,c
+   638  001FCC  D00C               	goto	l826
+   639  001FCE                     l822:
+   640  001FCE  BE02               	btfsc	LEDConvertVolume@number+1,7,c
+   641  001FD0  D00A               	goto	l826
+   642  001FD2  0EE9               	movlw	233
+   643  001FD4  5C01               	subwf	LEDConvertVolume@number,w,c
+   644  001FD6  0E01               	movlw	1
+   645  001FD8  5802               	subwfb	LEDConvertVolume@number+1,w,c
+   646  001FDA  A0D8               	btfss	status,0,c
+   647  001FDC  D004               	goto	l826
+   648                           
+   649                           ;lab2_analogueInput.c: 82: number = 0b0000000011;
+   650  001FDE  0E00               	movlw	0
+   651  001FE0  6E02               	movwf	LEDConvertVolume@number+1,c
+   652  001FE2  0E03               	movlw	3
+   653  001FE4  D003               	goto	L8
+   654  001FE6                     l826:
+   655                           
+   656                           ;lab2_analogueInput.c: 84: number = 0b0000000001;
+   657  001FE6  0E00               	movlw	0
+   658  001FE8  6E02               	movwf	LEDConvertVolume@number+1,c
+   659  001FEA  0E01               	movlw	1
+   660  001FEC                     L8:
+   661  001FEC  6E01               	movwf	LEDConvertVolume@number,c
+   662  001FEE                     l828:
+   663                           
+   664                           ;lab2_analogueInput.c: 85: }
+   665                           ;lab2_analogueInput.c: 86: volume = number;
+   666  001FEE  C001  F003         	movff	LEDConvertVolume@number,LEDConvertVolume@volume
+   667  001FF2  C002  F004         	movff	LEDConvertVolume@number+1,LEDConvertVolume@volume+1
+   668                           
+   669                           ;lab2_analogueInput.c: 87: return volume;
+   670  001FF6  C003  F001         	movff	LEDConvertVolume@volume,?_LEDConvertVolume
+   671  001FFA  C004  F002         	movff	LEDConvertVolume@volume+1,?_LEDConvertVolume+1
+   672  001FFE  0012               	return	
+   673  002000                     __end_of_LEDConvertVolume:
+   674                           	opt stack 0
+   675  0000                     status	equ	0xFD8
+   676                           status	equ	0xFD8
+   677                           
+   678                           	psect	rparam
+   679  0000                     status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     20      20
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_LEDout10
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                14    14      0     902
+                                              6 COMRAM    14    14      0
+                   _LEDConvertVolume
+                           _LEDout10
+ ---------------------------------------------------------------------------------
+ (1) _LEDout10                                             6     4      2     152
+                                              0 COMRAM     6     4      2
+ ---------------------------------------------------------------------------------
+ (1) _LEDConvertVolume                                     4     2      2     473
+                                              0 COMRAM     4     2      2
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 1
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _LEDConvertVolume
+   _LEDout10
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BITCOMRAM           5F      0       0       0        0.0%
+EEDATA             100      0       0       0        0.0%
+NULL                 0      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+COMRAM              5F     14      14       1       21.1%
+STACK                0      0       0       2        0.0%
+ABS                  0      0       0       3        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BIGRAM             2FF      0       0      10        0.0%
+DATA                 0      0       0      11        0.0%
+BITSFR               0      0       0      40        0.0%
+SFR                  0      0       0      40        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.35 build -356382666 
+Symbol Table                                                                                   Tue Jan 30 11:39:41 2018
+
+                       l63 1DD8                        l810 1F7E                        l802 1F46  
+                      l820 1FBE                        l804 1F56                        l822 1FCE  
+                      l814 1F96                        l816 1FA6                        l808 1F6E  
+                      l826 1FE6                        l780 1EBA                        l828 1FEE  
+                      l860 1E84                        l852 1E42                        l836 1DD6  
+                      l790 1EF6                        l854 1E4E                        l792 1F06  
+                      l784 1ECE                        l786 1EDE                        l778 1EAA  
+                      l796 1F1E                        l798 1F2E                        u420 1E32  
+         _LEDConvertVolume 1E8E                       _LATC 000F8B                       _LATD 000F8C  
+                     _main 1D86                       start 0000               ___param_bank 000010  
+                    ?_main 0001           __end_of_LEDout10 1D86                      _TRISA 000F92  
+                    _TRISC 000F94                      _TRISD 000F95                      main@t 000F  
+                    status 000FD8            __initialization 1D2C               __end_of_main 1E8E  
+           __CFG_OSC$IRCIO 000000                     ??_main 0007              __activetblptr 000000  
+                   _ADCON0 000FC2                     _ADCON1 000FC1                     _ADCON2 000FC0  
+                   _ADRESH 000FC4                     _ADRESL 000FC3                     _ANSEL0 000FB8  
+                   _ANSEL1 000FB9                 __accesstop 0060    __end_of__initialization 1D2C  
+            main@volumeold 000B              ___rparam_used 000001                  ?_LEDout10 0001  
+           __pcstackCOMRAM 0001   __end_of_LEDConvertVolume 2000                 ??_LEDout10 0003  
+                  __Hparam 0000                    __Lparam 0000                    __pcinit 1D2C  
+                  __ramtop 0300                    __ptext0 1D86                    __ptext1 1D32  
+                  __ptext2 1E8E       end_of_initialization 1D2C                 main@volume 0013  
+        __size_of_LEDout10 0054          ?_LEDConvertVolume 0001         ??_LEDConvertVolume 0003  
+      start_initialization 1D2C     LEDConvertVolume@number 0001     LEDConvertVolume@volume 0003  
+                 _LEDout10 1D32             LEDout10@number 0001                 _ADCON0bits 000FC2  
+                 __Hrparam 0000                   __Lrparam 0000  __size_of_LEDConvertVolume 0172  
+            __size_of_main 0108                   main@hold 0011               main@ADResult 000D  

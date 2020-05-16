@@ -1,0 +1,1 @@
+ build/default/debug/lab2_pushButton.d  build/default/debug/lab2_pushButton.p1:  lab2_pushButton.c
