@@ -179,10 +179,7 @@ void main(void){
             while(RCREG != 0x03){      // Run this loop until the end byte 0x03 is read   
                 SendLCD(RCREG,1);      // Send the characters between 0x02 and 0x03 to LCD
                 getCharSerial();       // Wait until a new byte is received and check its not 0x03
-        }
+			}	
+		}
     }
-    }
-    
-    
-    
 }

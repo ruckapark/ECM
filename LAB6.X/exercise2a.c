@@ -20,7 +20,7 @@
 
 void sendCharSerial(char charToSend){
     while (!PIR1bits.TXIF);     //what for the receive interrupt to clear
-    TXREG = charToSend;               //return byte in the RCREG
+    TXREG = charToSend;         //return byte in the RCREG
 }
 
 
@@ -53,8 +53,5 @@ void main(void){
         sendCharSerial(0x6F);
         sendCharSerial(0x03);    
     }
-    
-    
-    
 }
 

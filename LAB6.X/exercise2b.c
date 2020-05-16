@@ -84,9 +84,6 @@ void main(void){
         ADResult += ((unsigned int)ADRESH << 8); //ADResult now a 10 bit binary number
 
         intAndFracSerial(ADResult);              //Convert the ADResult binary into a string buf
-                                 //Maybe worth putting a delay in?    
+        //Maybe worth putting a delay in  
     }
-    
-    
-    
 }
