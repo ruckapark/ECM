@@ -61,7 +61,6 @@ void main(void){
     
     char startAnglePTMR = 62;       //-90 degrees
     int endAnglePTMR = 262;        //90 degrees
-    
     int ADResult;                   //Light level         
     
     while (1) {
