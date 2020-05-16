@@ -3,13 +3,17 @@
 #pragma config OSC = IRCIO, WDTEN = OFF //internal osciallator, WTD off
 
 int ADResult;
+int ADResultOld;
+int counter = 0;
 int dayCounter = 0;
-//include the LEDout function
-void LEDout(int number) {
+int totalDayLength = 120;  //based on processor speed just over 4 minutes
+int nightLength;
+int midnight;
 
+
+void LEDout(int number) {
     LATC = (number & 0b00111100) << 2; //set all the C pins we want to be a 8bit number
     LATD = ((number & 0b11000000) >> 2) | ((number & 0b00000011) << 2); //just combine the part of the d reg split
-
 }
 
 void LEDout10(int number)
@@ -18,6 +22,7 @@ void LEDout10(int number)
     LATD = (((number & 0b1111000000)>>2)|((number & 0b00000011)<<2))|(LATD & 0b00000011);
 }
 
+//for daylight savings condition at beginning checking days counter
 void interrupt InterruptHandlerHigh() { //high priority routine
 
     if (INTCONbits.TMR0IF) {
@@ -29,20 +34,33 @@ void interrupt InterruptHandlerHigh() { //high priority routine
         ADResult = ADRESL;
         ADResult += ((unsigned int) ADRESH << 8);
 
-        if ((dayCounter >= 5)&&(dayCounter <= 10)) {
-            LEDout10(0);
-        } else {
-
-            if (ADResult >= 700) {
-                LEDout10(0b1111111111); //turn light on above value
-            } else {
+        
+        if ((ADResult<800)&(ADResult>600)){     //in practise could have a more precise switching value
+            if(ADResultOld>ADResult){           //night to day
+                counter = 0;                    //reset counter
+                dayCounter++;                   //new day - could add condition for day counter = 365
+                LEDout10(0);                    //lights off
+            }
+            else{
+                nightLength = (totalDayLength-counter);     //calculate the lenght of the night
+                counter = 0;                                //reset the time to count to 1am
+                midnight = nightLength/2;                   //when is midnight? division is long
+                LEDout10(0b1111111111);                     //night time starts
+            }
+        } else if (ADResult <601){
+            counter++;              //increment counter
+            LEDout10(0);            //lights off
+        } else{
+            if((counter>(midnight+4))&(counter<(midnight+26))){
                 LEDout10(0);
-            } //turn off below
+                counter++;
+            }else{
+                counter++;                
+                LEDout10(0b1111111111);   //lights on
+            }
         }
         
-        dayCounter++;//add to time of day
-        if(dayCounter == 121){dayCounter =0;}//end of the day
-        
+        ADResultOld = ADResult; //store the old light value
         INTCONbits.TMR0IF = 0; //reset flag
         //        timerOverflows++; //increment a counter
         //        LEDout(timerOverflows);
