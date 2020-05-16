@@ -11,8 +11,6 @@ void LEDout(int number) {
 
 }
 
-//no need to define an integer here, we only have a timer overflow
-
 int timerOverflows = 0; //
 
 void delay(int t) {
@@ -26,13 +24,14 @@ void interrupt InterruptHandlerHigh()
     if (INTCONbits.TMR0IF)
     {
         
-        timerOverflows++; //increment a counter
+        timerOverflows++; 		//increment counter
         LEDout(timerOverflows);
         INTCONbits.TMR0IF = 0;  //clear the interrupt flag
     }
 
 }
 
+// LED counter increments upon overflow of a timer
 void main(void) {
     OSCCON = 0x72; //8MHz clock
     while (!OSCCONbits.IOFS); //wait for osc to become stable
@@ -46,7 +45,7 @@ void main(void) {
     
     // Generate an interrupt on timer overflow
     INTCONbits.GIEH = 1;    // Global Interrupt Enable bit
-    INTCONbits.TMR0IE = 1;  //enable TMR0 overflow interrupt
+    INTCONbits.TMR0IE = 1;  // enable TMR0 overflow interrupt
     INTCON2bits.TMR0IP = 1; // TMR0 High priority
     
     //timer setup
@@ -59,4 +58,3 @@ void main(void) {
     while(1){}
 
 }
-//write code for a counter that incremements when there is an overflow.

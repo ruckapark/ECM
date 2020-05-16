@@ -19,8 +19,8 @@ void interrupt InterruptHandlerHigh() { //high priority routine
 
     if (INTCONbits.INT0IF) {
         if (PORTCbits.RC3 == 1) {
-            if (PORTCbits.RC3 == 1) { //these are like a switch debouncer.
-                if (PORTCbits.RC3 == 1) { //if it suddenly returns to zero no interrupt
+            if (PORTCbits.RC3 == 1) { //these act as switch debouncer.
+                if (PORTCbits.RC3 == 1) { //if it suddenly returns to zero interrupt cancel
                     //increment a counter
                     LEDout(TMR0L);
                 }
@@ -39,7 +39,6 @@ void main(void) {
     TRISD = 0;
     TRISC = 0b00001000;     //set pin c3 as input
 
-    
     // Generate an interrupt on timer overflow
     INTCONbits.GIEH = 1;    // Global Interrupt Enable bit
     INTCONbits.INT0IE = 1; //INT0 External Interrupt Enable bit
@@ -53,4 +52,3 @@ void main(void) {
     while(1){}
 
 }
-//write code for a counter that incremements when there is an overflow.

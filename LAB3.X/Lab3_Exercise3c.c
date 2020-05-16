@@ -26,7 +26,8 @@ int bit16High(int x){//function to give the 8 most important bits of a 16 bit nu
     return x;
 }
 
-int bit16Low(int x) {//function to give the 8 least important bits of a 16 bit number 
+//function to give the 8 least important bits of a 16 bit number 
+int bit16Low(int x) {
 	x = x & 0b11111111; //keep low bits
     return x;
 }
@@ -74,4 +75,3 @@ void main(void) {
     while(1){}
 
 }
-//write code for a counter that incremements when there is an overflow.
