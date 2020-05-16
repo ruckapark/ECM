@@ -1,54 +1,50 @@
 #include <xc.h>
 
-//TRISC = 0b00001000|TRISC;
-//TRISCbits.RC3 = 1;   
-//set RC3 to be an input 
-// which is faster
+/*
+/TRISC = 0b00001000|TRISC;
+/TRISCbits.RC3 = 1; 
+/both set RC3 as inp but only line 3 ensures others are outputs
+*/
 
-//to read the port for the button presses, 
-//A = PORTCbitsRC3;
-//or we could use A = PORTC & 0b00001000;
+/*
+/two options to read input on button press: 
+/A = PORTCbitsRC3;
+/or we could use A = PORTC & 0b00001000;
+*/
 
+// C reg represents bit 2-6 D reg represents bit 0-2 and 6-8
 void LEDout(int number) {
 
     LATC = (number & 0b00111100) << 2; //set all the C pins we want to be a 8bit number
     LATD = ((number & 0b11000000) >> 2) | ((number & 0b00000011) << 2); //just combine the part of the d reg split
-
-    //Skeleton function for displaying a binary number
-    //on the LED array
-    //you can write values to the whole port at once using by
-    //changing LATN (e.g. LATC=something;)
-    //or
-    //individual pins can be changed using
-    //LATNbits.LATNx (e.g. LATDbits.LATD2=1;)
 }
 
+
+/* 
+/ Counter from 0 - 100 returning the binary counter value in decimal:
+/ 1 = 1 - 11 = 2 - 111 = 3 - 1111 = 4
+/ 35 -> 3.5 tens -> 3 tens -> 111 (i.e. 7 in binary so 35 should output 7 in decimal)
+*/
 void LEDten(int number){
  
     if((number/10)<2){
-        number /= 10; //below this value it just divides by ten and output in binary
+        number /= 10;
     } else {
         int x = 0;
         x = 1;
-        for(int i = 1;i < (number/10); i++){ //for loop runs from i = 1:(n/10-1)
-            x = x << 1;//at each loop it shifts to the left 11 << 110
-            x ++; //then add a 1 to get 110 = 111
+        for(int i = 1;i < (number/10); i++){ 
+            x = x << 1; //shift bits to left 11 -> 110
+            x ++; 		//add 1 110 -> 111 (3 tens)
         }
         number = x;
     }
     
-    //don't need to worry about floats, will remove decimal.
-    LATC = (number & 0b00111100) << 2; //set all the C pins we want to be a 8bit number
-    LATD = ((number & 0b11000000) >> 2) | ((number & 0b00000011) << 2); //just combine the part of the d reg split
-
+    LEDout(number);
 }
 
 void delay(int t) {
     int x;
     for (x = 0; x < t; x++);
-    //Skeleton function for delay code
-    //put code in here to make a delay
-    //of length t
 }
 
 //void main(void){
@@ -76,20 +72,17 @@ void delay(int t) {
 //    }
 //}
 
-//exercise2
 
-
-// exercise b
-
-
+// main code for ex 2b. and not 2a.! - a above
+// increment tens counter (add led) for every button push
 void main(void) {
     int a = 0; //read from port c3
-    int t = 0; //counter variable for time button held down
+    int t = 0; //counter
     int buttPush = 0; //counter for the number of button pushes
     
-    LATC = 0; //set the output data latch levels to 0 on all pins
+	//init
+    LATC = 0; 
     LATD = 0;
-    
     TRISD = 0;
     TRISC = 0b00001000; //set pin c3 as input
     
@@ -111,9 +104,7 @@ void main(void) {
                  
         }
         if(buttPush > 127){
-            buttPush = 0; //make sure it doesnt excede 8 bit limit
+            buttPush = 0; //dont excede 8 bit limit
         }
     }    
 }
-
-//exercise c incorporated into script a
