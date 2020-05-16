@@ -23,7 +23,7 @@ void initPWM(){
 //
 void angle2PWM(int ptmr){
     
-    /*if you want to convert from angles use the following formula*/
+    /*formula to convert from deg*/
     //ptmr = 0.74*theta + 129
     
     /*0.5ms = -90, 2ms = 180*/
@@ -53,7 +53,7 @@ void main(void){
     int endAnglePTMR = 262;  //90 degrees
     
     
-    
+    // go to right then to left etc. run continuously
     while (1) {
 
         for (int i = startAnglePTMR; i < endAnglePTMR; i++) {
