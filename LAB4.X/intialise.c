@@ -24,15 +24,13 @@
 
 //function to toggle enable bit on then off
 //enable bit is connected to pin RC0 or bit E on the LCD display
-
 void E_TOG(void) {
     ENABLE_BIT = 1;
-    __delay_us(5); // 5us delay ? remember to define _XTAL_FREQ
+    __delay_us(5); // 5us delay
     ENABLE_BIT = 0;
 }
 
 //function to send four bits to the LCD
-
 void LCDout(unsigned char number) {
 
     DB7 = number >> 3;
@@ -47,7 +45,6 @@ void LCDout(unsigned char number) {
 }
 
 //function to send data/commands over a 4bit interface
-
 void SendLCD(unsigned char Byte, char type) {
     RS=type;
     // set RS pin whether it is a Command (0) or Data/Char (1)
@@ -109,7 +106,6 @@ void LCD_Init(void) {
 
 
 //function to put cursor to start of line
-
 void SetLine(char line) {
     //Send 0x80 to set line to 1 (0x00 ddram address)
     if(line==1){
